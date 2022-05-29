@@ -222,9 +222,9 @@ def load_GOM_data(path):
 ##################################################################################################
 def get_predictions(data, variable):
 	'''
-	Compute present day physical state (temperature or maturity) of a geological column.
-	Computation is perforned with a neural network trained in the context of the Gulf of Mexico.
-	Results are identical to what one could obtain with a 1D full physics basin simulator.
+	Compute the present day physical state (temperature or maturity) of a geological column.
+	Computation is performed with a neural network trained in the context of the Gulf of Mexico.
+	Results are identical to those that one could obtain with a 1D full physics basin simulator.
 
 	Parameters:
 	- data (Numpy array) : the geological column, with shape (34, 1, 1)
