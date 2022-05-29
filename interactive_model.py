@@ -73,26 +73,25 @@ def summary(model_data):
 	import pydaisi as pyd
 	import numpy as np
 
-	gom_model = pyd.Daisi("Gulf of Mexico regional model")
+	gom_model = pyd.Daisi("laiglejm/Interactive GOM 1D Salt")
 	One_dim_model = np.array([0,'''
-	for i in range(1,6):
+	for i in range(1,16):
 		text += str(int(model_data[i])) + ","
-	for i in range(6, 11):
+	for i in range(16, 29):
 		text += str(round(model_data[i], 2)) + ","
-	text += str(int(model_data[11])) + ","
-	text += "{:.2e}".format(model_data[12]) + ","
-	text += "{:.2e}".format(model_data[13]) + ","
-	text += str(int(model_data[14])) + ","
-	text += str(int(model_data[15])) + "]).reshape((16,1,1))"
+	text += str(int(model_data[29])) + ","
+	text += "{:.2e}".format(model_data[30]) + ","
+	text += str(int(model_data[31])) + ","
+	text += "{:.2e}".format(model_data[32]) + ","
+	text += str(int(model_data[33])) + "]).reshape((34,1,1))"
 	text += '''
-	# dims 0 to 5 = depths, dims 6 to 11 = lithos ratios, dim 12 = Crust thickness, dim 13 = Upper Crust rHP, dim 14 = Lower Crust RHP, dim 15 = Present day surface temperature
+	# dims 0 to 15 = depths, dims 16 to 29 = lithos ratios, dim 30 = Crust Thickness, dim 31 = Lower Crust RHP, dim 32 = Upper Mantle thickness, dim 33 = Upper Crust RHP, dim 34 = Present day surface temperature
 	# call the prediction with variable='temperature' or variable='maturity'
 	result = gom_model.get_predictions(data=One_dim_model, variable='temperature').value.flatten()
 	```
 
 	'''
 	return text
-
 
 ##################################################################################################
 def transform(X, A, B, gradient, intercept):
@@ -220,7 +219,38 @@ def load_GOM_data(path):
 	
 	return transform_data, mat_model, temp_model, history_model, project_affine, data_array, ro_sts, depths, lithos
 
+##################################################################################################
+def get_predictions(data, variable):
+	'''
+	Compute present day physical state (temperature or maturity) of a geological column.
+	Computation is perforned with a neural network trained in the context of the Gulf of Mexico.
+	Results are identical to what one could obtain with a 1D full physics basin simulator.
 
+	Parameters:
+	- data (Numpy array) : the geological column, with shape (34, 1, 1)
+	- varialbe (str) :  the desired output, 'temperature' or 'maturity'
+
+	Returns : a Numpy array with the prediction
+
+	Check the Readme for details on the underlying hypotheses.
+	'''
+
+	if len(data.shape) != 3:
+		return f"Found shape {data.shape} Please provide a data array with shape (34, ny, nx)."
+
+	else:
+		ny = data.shape[1]
+		nx = data.shape[2]
+		array_to_compute = data.reshape((data.shape[0], nx*ny))
+		input_vectors = prepare_vector(transform_data, data_array = array_to_compute)
+		models = {'temperature' : temp_model.model, 'maturity': mat_model.model}
+
+		if variable in models:
+			prediction = predict(input_vectors, models[variable])
+			return prediction.transpose().reshape((prediction.shape[1], ny, nx))
+
+		else:
+			return "Unsupported variable type. Please use temperature or maturity"
 
 ##################################################################################################
 def st_ui():
