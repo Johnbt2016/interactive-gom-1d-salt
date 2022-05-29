@@ -1,0 +1,307 @@
+{
+    "Basement": {
+        "Crust Thickness": {
+            "is_variable": "True",
+            "max": 40000,
+            "min": 5000
+        },
+        "Lower Crust RHP": {
+            "is_variable": "True",
+            "max": 1e-06,
+            "min": 0
+        },
+        "Mantle Thickness": {
+            "is_variable": "True",
+            "max": 150000,
+            "min": 50000
+        },
+        "Upper Crust RHP": {
+            "is_variable": "True",
+            "max": 5e-06,
+            "min": 0
+        }
+    },
+    "Rifting": {},
+    "Sediments": [
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 0.0,
+            "Geometry_is_variable": "True",
+            "InitAge": 1.8,
+            "LayerName": "Water_Bottom",
+            "Lithology": "80mdst20sst",
+            "Lithology_1": "salt",
+            "Lithology_2": "80mdst20sst",
+            "Lithology_is_variable": "False",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 1.8,
+            "Geometry_is_variable": "True",
+            "InitAge": 2.5,
+            "LayerName": "Top_Allo_Salt",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst_mixed",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 2.5,
+            "Geometry_is_variable": "True",
+            "InitAge": 5.3,
+            "LayerName": "Intermed_Allo_Salt",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst_mixed",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 5.3,
+            "Geometry_is_variable": "True",
+            "InitAge": 7.25,
+            "LayerName": "Lower_Half_Allo_Salt",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst_mixed",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 7.25,
+            "Geometry_is_variable": "True",
+            "InitAge": 13.53,
+            "LayerName": "Upper_Miocene",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 13.53,
+            "Geometry_is_variable": "True",
+            "InitAge": 17.95,
+            "LayerName": "Mid_Miocene",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst_mixed",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 17.95,
+            "Geometry_is_variable": "True",
+            "InitAge": 23.03,
+            "LayerName": "Lower_Miocene",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "80mdst20sst_mixed",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 23.03,
+            "Geometry_is_variable": "True",
+            "InitAge": 48.6,
+            "LayerName": "Top_Oligocene",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "100lst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 48.6,
+            "Geometry_is_variable": "True",
+            "InitAge": 65.5,
+            "LayerName": "Top_Wilcox",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "50mdst50sst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 65.5,
+            "Geometry_is_variable": "True",
+            "InitAge": 88.0,
+            "LayerName": "Top_Cretaceous",
+            "Lithology": "",
+            "Lithology_1": "salt",
+            "Lithology_2": "100lst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 88.0,
+            "Geometry_is_variable": "True",
+            "InitAge": 101.0,
+            "LayerName": "Top Source Layer #1",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "100mdst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 101.0,
+            "Geometry_is_variable": "True",
+            "InitAge": 136.5,
+            "LayerName": "Top Waste Layer #1",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "100lst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 136.5,
+            "Geometry_is_variable": "True",
+            "InitAge": 154.0,
+            "LayerName": "Top Source Layer #2",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "100lst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 154.0,
+            "Geometry_is_variable": "True",
+            "InitAge": 163.5,
+            "LayerName": "Top Source Layer #3",
+            "Lithology": "",
+            "Lithology_1": "salt_mixed",
+            "Lithology_2": "100lst",
+            "Lithology_is_variable": "True",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        },
+        {
+            "ErosionEventName": null,
+            "EventType": "DEPOSIT",
+            "FinalAge": 163.5,
+            "Geometry_is_variable": "True",
+            "InitAge": 169.7,
+            "LayerName": "Top_Auto_Salt",
+            "Lithology": "salt",
+            "Lithology_1": "sandstone",
+            "Lithology_2": "shale",
+            "Lithology_is_variable": "False",
+            "SurfTemp": 10,
+            "max": null,
+            "min": null,
+            "row_index": 0
+        }
+    ],
+    "Special_Parameters": [
+        {
+            "max": 25,
+            "min": 3.0,
+            "name": "surf_temp"
+        }
+    ],
+    "dataset": {
+        "data_class": [
+            "Temperature"
+        ],
+        "data_columns": [
+            1,
+            2
+        ],
+        "data_types": [
+            "Temperature",
+            "EzRo"
+        ],
+        "depth_column": 0,
+        "nprocesses": 16,
+        "nsimulations": 200000
+    },
+    "mega_seq": [
+        {
+            "end": 0,
+            "max": 25000,
+            "min": 0,
+            "name": "GoM",
+            "start": 169.7
+        }
+    ],
+    "metadata": {
+        "basin_id": "014f18f9-1dc2-434d-9526-a0ccbe788d5e",
+        "basin_name": "Gulf of Mexico 2",
+        "can_create": true,
+        "date": "2021-09-21 22:10:09.413395",
+        "read_only": false,
+        "user_id": "v2"
+    }
+}
