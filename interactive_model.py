@@ -65,7 +65,7 @@ ro_sts = pd.read_csv(f, sep=';')
 
 def summary(model_data):
 	text = '''
-	Interactive 1D application using a Neural Network trained in the Gulf of Mexico geological setting.  
+	Interactive 1D basin model using a Neural Network trained for the Gulf of Mexico geological setting.  
 	This is for educational purposes only and should not be used for decision making.  
 
 	You can call it programatically (The code snippet below is up to date with the current app values !):  
@@ -283,13 +283,13 @@ def st_ui():
 	# present_day_temperature = 4.0
 
 	with st.sidebar.header("Geometry"):
-		thick_layer1 = st.sidebar.slider("Thickness Layer 1 - Plio-Pleistocene", 100, 5000, 1000)
-		thick_layer2 = st.sidebar.slider("Thickness Layer 2 - Allochtonous Salt", 100, 5000, 2000)
-		thick_layer3 = st.sidebar.slider("Thickness Layer 3 - Miocene", 100, 5000, 1000)
-		thick_layer4 = st.sidebar.slider("Thickness Layer 4 - Paleogene", 100, 5000, 1000)
-		thick_layer5 = st.sidebar.slider("Thickness Layer 5 - Late Cretaceous", 100, 5000, 1000)
-		thick_layer6 = st.sidebar.slider("Thickness Layer 6 - Upper Jurassic to Mid Cretaceous", 100, 5000, 1000)
-		thick_layer7 = st.sidebar.slider("Thickness Layer 7 - Callovian Salt", 100, 5000, 1000)
+		thick_layer1 = st.sidebar.slider("Thickness Plio-Pleistocene (m)", 100, 5000, 1000)
+		thick_layer2 = st.sidebar.slider("Thickness Allochtonous Salt (m)", 100, 5000, 2000)
+		thick_layer3 = st.sidebar.slider("Thickness Miocene (m)", 100, 5000, 1000)
+		thick_layer4 = st.sidebar.slider("Thickness Paleogene (m)", 100, 5000, 1000)
+		thick_layer5 = st.sidebar.slider("Thickness Late Cretaceous (m)", 100, 5000, 1000)
+		thick_layer6 = st.sidebar.slider("Thickness Upper Jurassic to Mid Cretaceous (m)", 100, 5000, 1000)
+		thick_layer7 = st.sidebar.slider("Thickness Callovian Salt (m)", 100, 5000, 1000)
 	
 	for ix, t in enumerate([thick_layer1, thick_layer2, thick_layer3, thick_layer4, thick_layer5, thick_layer6, thick_layer7]):
 		top = geol_column[-1]
@@ -299,7 +299,7 @@ def st_ui():
 			geol_column.append(intermediate[k])
 
 	with st.sidebar.header("Lithology ratios"):
-		lithoratio_layer2 = st.sidebar.slider("Salt vs 80mdst20sst Layer 2 - Alloch. Salt or Plio/Pleist.", 0., 1., 1.0)
+		lithoratio_layer2 = st.sidebar.slider("Salt vs 80mdst20sst Layer 2 - Alloch. Salt or Mio./Plioc.", 0., 1., 1.0)
 		lithoratio_layer3 = st.sidebar.slider("Salt vs 80mdst20sst Layer 3 - Miocene", 0., 1., 0.)
 		lithoratio_layer4 = st.sidebar.slider("Salt vs 50mdst50sst Layer 4 - Paleogene", 0., 1., 0.)
 		lithoratio_layer5 = st.sidebar.slider("Salt vs 100lst Layer 5 - Late Cretaceous", 0., 1., 0.)
@@ -310,16 +310,37 @@ def st_ui():
 			geol_column.append(l)
 
 	st.sidebar.header("Basement parameters")
-	crust_thickness = st.sidebar.slider("Crust Thickness (Top Basement to Moho) (km)", 10, 40, 15)
-	crust_thickness *= 1000
 
-	uc_rhp = st.sidebar.slider("Upper Crust RHP (uW/m3)", 0., 5., 1.5)
+	crust_dict = dict()
+	crust_dict["Free selection"] = {"Crust Thickness" : [10, 40, 15], 
+							   "Upper Crust RHP" : [0., 5., 1.5],
+							   "Lower Crust RHP" : [0., 2., 0.2],
+							   "Mantle Thickness": [50, 120, 70]}
+	crust_dict["Oceanic Crust"] = {"Crust Thickness" : [8, 15, 11], 
+							   "Upper Crust RHP" : [0., 0.1, 0.],
+							   "Lower Crust RHP" : [0., 0.1, 0.],
+							   "Mantle Thickness": [50, 70, 60]}
+	crust_dict["Transitional Crust"] = {"Crust Thickness" : [10, 20, 15], 
+							   "Upper Crust RHP" : [0., 2., 1.5],
+							   "Lower Crust RHP" : [0., 0.5, 0.2],
+							   "Mantle Thickness": [50, 90, 70]}
+	crust_dict["Continental Crust"] = {"Crust Thickness" : [18, 40, 25], 
+							   "Upper Crust RHP" : [2., 5., 3.],
+							   "Lower Crust RHP" : [0., 2., 1.],
+							   "Mantle Thickness": [80, 120, 100]}
+
+	crust_type = st.sidebar.selectbox("Crust type selection", ["Free selection", "Oceanic Crust", "Transitional Crust", "Continental Crust"])
+	mmd = crust_dict[crust_type]["Crust Thickness"]
+	crust_thickness = st.sidebar.slider("Crust Thickness (Top Basement to Moho) (km)", mmd[0], mmd[1], mmd[2])
+	crust_thickness *= 1000
+	mmd = crust_dict[crust_type]["Upper Crust RHP"]
+	uc_rhp = st.sidebar.slider("Upper Crust RHP (uW/m3)", mmd[0], mmd[1], mmd[2])
 	uc_rhp *= 1.0e-6
-	
-	lc_rhp = st.sidebar.slider("Lower Crust RHP (uW/m3)", 0., 2., 0.2)
+	mmd = crust_dict[crust_type]["Lower Crust RHP"]
+	lc_rhp = st.sidebar.slider("Lower Crust RHP (uW/m3)", mmd[0], mmd[1], mmd[2])
 	lc_rhp *= 1.0e-6
-	
-	mantle_thickness = st.sidebar.slider("Upper Mantle Thickness (Moho to Astenosphere) (km)", 50, 120, 70)
+	mmd = crust_dict[crust_type]["Mantle Thickness"]
+	mantle_thickness = st.sidebar.slider("Upper Mantle Thickness (Moho to Astenosphere) (km)", mmd[0], mmd[1], mmd[2])
 	mantle_thickness *= 1000
 	
 	geol_column.append(crust_thickness)
@@ -332,8 +353,10 @@ def st_ui():
 	geol_column = np.array(geol_column).reshape((34,1,1))
 	
 	st.sidebar.header("Graphical options")
+
+	
 	onset_oil_window = st.sidebar.slider("Onset oil window (%Ro)", 0.4, 0.7, 0.55)
-	floor_oil_window = st.sidebar.slider("Floor oil window (%Ro)", 1.0, 1.3, 1.2)
+	floor_oil_window = st.sidebar.slider("Floor oil window (%Ro)", 1.1, 1.3, 1.2)
 
 	max_depth = float(st.sidebar.text_input("Maximum depth (m)", 10000))
 	max_temperature = float(st.sidebar.text_input("Maximum temperature (C)", 400))
@@ -356,7 +379,12 @@ def st_ui():
 	mid_points = np.insert(mid_points, 0, 0)
 	
 	top_oil_window = np.interp(onset_oil_window, maturity, mid_points)
+	lim1 = np.interp(0.8, maturity, mid_points)
+	lim2 = np.interp(1.0, maturity, mid_points)
 	bottom_oil_window = np.interp(floor_oil_window, maturity, mid_points)
+	lim3 = np.interp(1.5, maturity, mid_points)
+	lim4 = np.interp(2.0, maturity, mid_points)
+	lim5 = np.interp(4.0, maturity, mid_points)
 
 	# print(temperature)
 	# data = np.vstack((temperature, mid_points))
@@ -369,10 +397,11 @@ def st_ui():
 	if user_data is not None:
 		xls = pd.read_excel(user_data)
 		data = xls.values
-
-
-	
-	colors = ['#FFECA6', '#C32E92', '#FFF102', '#EEA26D', '#A7CD6B', '#ABDBEC', '#C32E92']
+	salt_color = "#FF39E7"
+	colors = ['#FFECA6', '#FFF102', '#FFF102', '#EEA26D', '#A7CD6B', '#ABDBEC', '#C32E92']
+	for i, l in enumerate([lithoratio_layer2, lithoratio_layer3, lithoratio_layer4, lithoratio_layer5, lithoratio_layer6]):
+		if l > 0.5:
+			colors[i+1] = salt_color
 
 	with _lock:
 		fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18,12))
@@ -413,12 +442,15 @@ def st_ui():
 			
 			y = np.array([[x1,y1], [x2, y2], [x2, y3], [x1, y4]])
 			if ii < 7:
-				p = Polygon(y, facecolor = colors[ii], alpha = 0.5)
+				alpha = 0.5
+				if colors[ii] == salt_color:
+					alpha = 1
+				p = Polygon(y, facecolor = colors[ii], alpha = alpha)
 				ax1.add_patch(p)					
 					
 
 		ax2.plot(maturity, mid_points, 'o-', c='black')
-		ax2.plot(sts/100, mid_points, 'o--', c='yellow')
+		ax2.plot(sts/100, mid_points, 'o--', c='white')
 		ax2.set_ylim([0,max_depth])
 
 		if data is not None:
@@ -441,7 +473,7 @@ def st_ui():
 		
 		for ii,m in enumerate(markers):
 			skip = False
-			ax2.plot(m[0], m[1], 'k--', lw=0.8)
+			ax2.plot(m[0], m[1], 'k--', lw=1.5)
 			x1 = m[0][0]
 			y1 = m[1][0]
 			x2 = m[0][1]
@@ -456,11 +488,26 @@ def st_ui():
 			
 			y = np.array([[x1,y1], [x2, y2], [x2, y3], [x1, y4]])
 			if ii < 7:
-				p = Polygon(y, facecolor = colors[ii], alpha = 0.5)
+				p = Polygon(y, facecolor = '#A6A6A6', alpha = 0.5)
 				ax2.add_patch(p)
 			#Oil window display
-			y = np.array([[0,top_oil_window], [max_Ro, top_oil_window], [max_Ro, bottom_oil_window], [0, bottom_oil_window]])
-			p = Polygon(y, facecolor = 'green', alpha = 0.5)
+			y = np.array([[0,top_oil_window], [max_Ro, top_oil_window], [max_Ro, lim1], [0, lim1]])
+			p = Polygon(y, facecolor = '#336600', alpha = 0.5)
+			ax2.add_patch(p)
+			y = np.array([[0,lim1], [max_Ro, lim1], [max_Ro, lim2], [0, lim2]])
+			p = Polygon(y, facecolor = '#66FF02', alpha = 0.5)
+			ax2.add_patch(p)
+			y = np.array([[0,lim2], [max_Ro, lim2], [max_Ro, bottom_oil_window], [0, bottom_oil_window]])
+			p = Polygon(y, facecolor = '#FFFF99', alpha = 0.5)
+			ax2.add_patch(p)
+			y = np.array([[0,bottom_oil_window], [max_Ro, bottom_oil_window], [max_Ro, lim3], [0, lim3]])
+			p = Polygon(y, facecolor = '#FFCC02', alpha = 0.5)
+			ax2.add_patch(p)
+			y = np.array([[0,lim3], [max_Ro, lim3], [max_Ro, lim4], [0, lim4]])
+			p = Polygon(y, facecolor = '#FF6634', alpha = 0.5)
+			ax2.add_patch(p)
+			y = np.array([[0,lim4], [max_Ro, lim4], [max_Ro, lim5], [0, lim5]])
+			p = Polygon(y, facecolor = '#FF0033', alpha = 0.5)
 			ax2.add_patch(p)
 			ax2.annotate('Top Oil Window', (max_Ro, top_oil_window - 25), ha = 'right')
 
