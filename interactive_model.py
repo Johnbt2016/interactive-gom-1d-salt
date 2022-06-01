@@ -258,13 +258,13 @@ def st_ui():
 
 	# Load NN models and transform
 
-	layers_dict = {0: "Layer 1 - Plio-Pleistocene",
-						1: "Layer 2 - Allochtonous Salt or Plio/Pleist.",
-						2: "Layer 3 - Miocene",
-						3: "Layer 4 - Paleogene",
-						4: "Layer 5 - Late Cretaceous",
-						5: "Layer 6 - Upper Jurassic to Mid Cretaceous",
-						6: "Layer 7 - Callovian Salt"
+	layers_dict = {0: "Sea Bottom",
+						1: "Top Mio./Plioc.",
+						2: "Top Miocene",
+						3: "Top Paleogene",
+						4: "Top Cretaceous",
+						5: "Top mid-Cretaceous",
+						6: "Top Callovian Salt"
 						}
 
 	layers_wrap = {0: [0],
@@ -446,7 +446,8 @@ def st_ui():
 				if colors[ii] == salt_color:
 					alpha = 1
 				p = Polygon(y, facecolor = colors[ii], alpha = alpha)
-				ax1.add_patch(p)					
+				ax1.add_patch(p)
+				ax1.annotate(layers_dict[ii], (max_temperature, m[1][0] + 150), ha = 'right')
 					
 
 		ax2.plot(maturity, mid_points, 'o-', c='black')
