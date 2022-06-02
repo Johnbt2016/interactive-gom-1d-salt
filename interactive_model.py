@@ -284,7 +284,7 @@ def st_ui():
 
 	with st.sidebar.header("Geometry"):
 		thick_layer1 = st.sidebar.slider("Thickness Plio-Pleistocene (m)", 100, 5000, 1000)
-		thick_layer2 = st.sidebar.slider("Thickness Allochtonous Salt (m)", 100, 5000, 2000)
+		thick_layer2 = st.sidebar.slider("Thickness Allochtonous Salt / Mioc.-Plioc. (m)", 100, 5000, 2000)
 		thick_layer3 = st.sidebar.slider("Thickness Miocene (m)", 100, 5000, 1000)
 		thick_layer4 = st.sidebar.slider("Thickness Paleogene (m)", 100, 5000, 1000)
 		thick_layer5 = st.sidebar.slider("Thickness Late Cretaceous (m)", 100, 5000, 1000)
@@ -329,7 +329,7 @@ def st_ui():
 							   "Lower Crust RHP" : [0., 2., 1.],
 							   "Mantle Thickness": [80, 120, 100]}
 
-	crust_type = st.sidebar.selectbox("Crust type selection", ["Free selection", "Oceanic Crust", "Transitional Crust", "Continental Crust"])
+	crust_type = st.sidebar.selectbox("Crust type selection", ["Free selection", "Oceanic Crust", "Transitional Crust", "Continental Crust"], index = 2)
 	mmd = crust_dict[crust_type]["Crust Thickness"]
 	crust_thickness = st.sidebar.slider("Crust Thickness (Top Basement to Moho) (km)", mmd[0], mmd[1], mmd[2])
 	crust_thickness *= 1000
